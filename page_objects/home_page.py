@@ -25,10 +25,9 @@ _fb_password_field = '//input[@id="pass"]'
 _fb_login_button = '//label[@id="loginbutton"]'
 
 
-driver = webdriver.Chrome(executable_path='/home/balous/PycharmProjects/test_selenium/chromedriver')
+#driver = webdriver.Chrome(executable_path='/home/balous/PycharmProjects/test_selenium/chromedriver')
 
-_password_field = "user_password"
-_login_button = "commit"
+
 
 class HomePage(BasePage):
     url = "https://sklep.kfd.pl/"
@@ -61,13 +60,13 @@ class HomePage(BasePage):
         self.find_by_xpath(_go_to_login_with_fb).click()
 
     def login_with_facebook(self,email ,password):
-        self.driver.switch_to.window(driver.window_handles[-1])
-        print(driver.title)
-
+        self.driver.switch_to.window(self.driver.window_handles[-1])
         email_field = self.find_by_xpath(_fb_email_field)
         password_field = self.find_by_xpath(_fb_password_field)
         login_button = self.find_by_xpath(_fb_login_button)
+        email_field.clear()
         email_field.send_keys(email)
+        password_field.clear()
         password_field.send_keys(password)
         login_button.click()
         try:
@@ -75,34 +74,9 @@ class HomePage(BasePage):
             confirm_button.click()
         except:
             pass
-        self.driver.switch_to.window(driver.window_handles[0])
+        self.driver.switch_to.window(self.driver.window_handles[0])
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#switch to new window : driver.SwitchTo().Window(driver.WindowHandles.Last());?? driver.getWindowHandle();
-
-
-
-
-
-a = HomePage(driver)
-a.navigate()
-a.go_to_login_with_fb()
-a.login_with_facebook()
-#a.filter_product_by_category()

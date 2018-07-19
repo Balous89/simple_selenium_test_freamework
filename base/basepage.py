@@ -14,9 +14,10 @@ from selenium.webdriver.common.action_chains import ActionChains
 class BasePage(object):
     url = None
 
+    driver = webdriver.Chrome(executable_path='/home/balous/PycharmProjects/test_selenium/chromedriver')
 
-    def __init__(self, driver):
-        self.driver = driver
+    def __init__(self):
+        #self.driver = driver
         self.driver.maximize_window()
         #self.driver.set_page_load_timeout(60)
         self.WebDriverWait = WebDriverWait
@@ -40,6 +41,14 @@ class BasePage(object):
         return self.WebDriverWait(self.driver, 50).until(
             EC.presence_of_element_located((By.XPATH, xpath))
         )
+
+    def find_all_by_xpath(self, xpath):
+        return self.WebDriverWait(self.driver, 50).until(
+            EC.presence_of_all_elements_located((By.XPATH, xpath))
+        )
+
+
+
     # def move_to_element(self,element):
     #     self.action.move_to_element(element).click().perform()
 
